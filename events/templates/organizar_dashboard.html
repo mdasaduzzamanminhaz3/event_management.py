@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load static %} 
+{% block title %}Dashboard{% endblock title %}
+{% block content %}
+<main class="m-6 p-6">
+  <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 border-b border-gray-100 text-sm">
+    <!-- task -->
+    <div class="bg-white rounded-xl p-6 shadow-md">
+      <h3 class="text-sm font-medium text-gray-500 mb-4">TOTAL NUMBER OF PERTICIPENTS</h3>
+      <div class="flex justify-between">
+        <div>
+          <p class="text-3xl mb-2 font-semibold">{{total_participants}}</p>
+          <p class="text-sm font-medium text-gray-500 mb-4">
+            11 Last month
+          </p>
+        </div>
+        <div
+          class="bg-blue-200 h-10 w-10 rounded-full flex justify-center items-center p-3"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="size-6 text-blue-600 font-semibold"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <!-- completed task -->
+    <div class="bg-white rounded-xl p-6 shadow-md">
+      <h3 class="text-sm font-medium text-gray-500 mb-4">TOTAL NUMBER OF EVENTS.</h3>
+      <div class="flex justify-between">
+        <div>
+          <p class="text-3xl mb-2 font-semibold"> {{total_events}} </p>
+          <p class="text-sm font-medium text-gray-500 mb-4">
+            11 Last month
+          </p>
+        </div>
+        <div
+          class="bg-green-200 h-10 w-10 rounded-full flex justify-center items-center p-3"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="size-6 text-green-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <!-- task in progress -->
+    <div class="bg-white rounded-xl p-6 shadow-md">
+      <h3 class="text-sm font-medium text-gray-500 mb-4">
+        NUMBER OF UPCOMING EVENTS
+      </h3>
+      <div class="flex justify-between">
+        <div>
+          <p class="text-3xl mb-2 font-semibold">{{upcoming_events}}</p>
+          <p class="text-sm font-medium text-gray-500 mb-4">
+            11 Last month
+          </p>
+        </div>
+        <div
+          class="bg-yellow-200 h-10 w-10 rounded-full flex justify-center items-center p-3"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="size-6 text-yellow-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <!-- todos -->
+    <div class="bg-white rounded-xl p-6 shadow-md">
+      <h3 class="text-sm font-medium text-gray-500 mb-4">NUMBER OF PAST EVENTS</h3>
+      <div class="flex justify-between">
+        <div>
+          <p class="text-3xl mb-2 font-semibold">{{past_events}}</p>
+          <p class="text-sm font-medium text-gray-500 mb-4">
+            11 Last month
+          </p>
+        </div>
+        <div
+          class="bg-violet-200 h-10 w-10 rounded-full flex justify-center items-center p-3"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="size-6 text-violet-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="m-2 p-2 bg-purple-600 rounded-full font-semibold text-white" href="{% url 'add_participant' %}">Add Participant</a>
+
+
+<div class="max-w-4xl mx-auto mt-8">
+  <h1 class="text-2xl font-bold mb-4">All Participants</h1>
+  <table class="min-w-full border">
+    <thead class="bg-gray-100 text-left">
+      <tr>
+        <th class="py-2 px-4">Name</th>
+        <th class="py-2 px-4">Email</th>
+        <th class="py-2 px-4">Registered Events</th>
+        <th class="py-2 px-4">Remove or Edit</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for participant in participants %}
+      <tr class="border-t">
+        <td class="py-2 px-4">{{ participant.name }}</td>
+        <td class="py-2 px-4">{{ participant.email }}</td>
+        <td class="py-2 px-4">
+          {% for event in participant.events.all %}
+            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-sm mr-1">
+              {{ event.name }}
+            </span>
+          {% endfor %}
+        </td>
+
+        <td class="flex justify-between p-2 mb-4">
+        <a href="{% url 'edit_participant' participant.id%}" class="rounded-md bg-purple-200 p-1  m-1 text-purple-600 shadow-md">
+          Edit
+        </a>
+        <a href="{% url 'remove_participant' participant.id %}" class="rounded-md bg-red-200 p-1  m-1 text-red-600 shadow-md">Remove</a>
+      </td>
+
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+</main>
+
+{% endblock content %}

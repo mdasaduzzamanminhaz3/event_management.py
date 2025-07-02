@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete participant</title>
+</head>
+<body>
+   
+
+        <h1 class ='font-semibold text-3xl text-orange-600 text-center'>Are You Sure You Want To Delete this Participant?</h1>
+    
+        <form action="" method="POST">
+            {% csrf_token %}
+            <button class ="rounded-full bg-red-600 p-2  m-1 text-white">Delete</button>
+            <a class ="rounded-full bg-green-600 p-2  m-2 text-white" href="{% url 'organizar_dashboard' %}"> Cancle</a>
+        </form>
+   
+</body>
+</html>
