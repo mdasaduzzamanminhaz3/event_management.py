@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from events.models import Event,Participant,Category
-from .forms import EventForm,ParticipantForm
+from .forms import EventForm,ParticipantForm,CategoryForm
 from django.contrib import messages
 from datetime import date
 from django.db.models import Q
@@ -82,6 +82,7 @@ def add_participant(request):
         form = ParticipantForm()
     return render(request,"add_participant.html",{'form':form})
 
+
 def view_participants(request):
     participants = Participant.objects.all()
     return render(request,"organizar_dashboard.html",{'participants':participants})
@@ -119,3 +120,38 @@ def remove_participant(request,id):
         participant.delete()
         return redirect('organizar_dashboard')
     return render(request,'participant_confirm_delete.html',{'participant':participant})
+
+
+
+def create_category(request):
+    if request.method =='POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            messages.success(request,"Category add sucessfully!")
+            return redirect('create_category')
+    else:
+        form = CategoryForm()
+    categories = Category.objects.all()
+    return render(request,"create_category.html",{'form':form,'categories':categories})  
+
+def remove_category(request,id):
+    category = Category.objects.get(id=id)
+    if request.method=='POST':
+        category.delete()
+        return redirect('create_category')
+    return render(request,'create_category.html',{'category':category})
+
+def update_category(request,id):
+    category = Category.objects.get(id=id) 
+    if request.method =='POST':
+        form= CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+           category= form.save(commit=False)
+           category.save()
+           messages.success(request, "Category Update Sucessfully")
+           return redirect('create_category')
+    else:
+        form = CategoryForm(instance=category)
+    return render(request,"create_category.html",{'form':form})
