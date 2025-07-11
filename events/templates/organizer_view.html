@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% load static %}
+{% block title %}Organizer Dashboard{%endblock title %} 
+{% block content %}
+
+<div class="max-w-md mx-auto mt-6 flex justify-between">
+  <form
+    action="{% url "search" %}"
+    method="GET"
+    class="flex items-center border border-gray-300 rounded-md overflow-hidden shadow-sm"
+  >
+    <input
+      type="text"
+      name="search"
+      placeholder="Search Events or location"
+      class="w-full px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+    />
+    <button
+      type="submit"
+      class="bg-purple-600 text-white px-4 py-2 hover:bg-purple-700 transition"
+    >
+      Search
+    </button>
+  </form>
+
+</div>
+
+<main class="bg-gray-50">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+    {% for event in events %}
+      <div class="h-100 w-80 shadow-md rounded-md transition ease-in-out delay-150 bg-purple-300 hover:-translate-y-1 hover:scale-110 hover:bg-gray-400 duration-300">
+      <img src="{{event.asset.url}}" alt="browse image" />
+      <h5 class="font-semibold">{{event.name}}</h5>
+      <h5 class="font-semibold">Category: {{event.category}}</h5>
+      <h5 class="font-semibold">location: {{event.location}}</h5>
+      <h6 class="font-semibold">DATE: {{event.date}}</h6>
+
+      <p>
+        {{event.description}}
+      </p>
+      <div class="flex justify-between p-2 mb-4">
+        <a href="{% url 'update_event' event.id %}" class="rounded-md bg-purple-600 p-2  m-1 text-white">
+          Update
+        </a>
+        <a href="{% url "delete_event" event.id %}" class="rounded-md bg-red-600 p-2  m-1 text-white">Delete</a>
+      </div>
+      </div>
+    {% endfor %}
+
+  </div>
+</main>
+
+{% endblock content %}

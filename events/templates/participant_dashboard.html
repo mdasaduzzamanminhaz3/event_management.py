@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}My Events{% endblock %}
+
+{% block content %}
+<h2 class="text-xl font-bold mb-4">My RSVP Events</h2>
+{% for event in events %}
+    <div class="border p-4 mb-4 bg-gray-100 rounded">
+        <h3 class="text-lg font-semibold">{{ event.name }}</h3>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Date:</strong> {{ event.date }}</p>
+        <p><strong>Description:</strong> {{ event.description }}</p>
+        
+    </div>
+{% empty %}
+    <p>You haven't RSVPed to any events yet.</p>
+{% endfor %}
+{% endblock %}

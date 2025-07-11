@@ -21,17 +21,15 @@
   
               <div class="md:flex space-x-6 items-center">
                 <a href="{% url "user_page" %}" class="hover:text-purple-500 font-semibold">Home</a>
-                {% if user.is_authenticated and user.groups.first.name == 'Organizer' %}
                 <a href="{% url 'organizer_view' %}" class="hover:text-purple-500 font-semibold">Events</a>
-                <a href="{% url "organizar_dashboard" %}" class="hover:text-purple-500 font-semibold"
+                <a href="{% url 'dashboard' %}" class="hover:text-purple-500 font-semibold"
                   >Dashboard</a
                 >
-
+                <a href="#" class="hover:text-purple-500 font-semibold"
+                  >Contact</a
+                >
                 
                   <a class = "bg-purple-600 rounded-md p-2 m-2 font-semibold text-white hover:bg-purple-800 mt-4" href="{% url 'create_event' %}">CREATE EVENT</a> 
-                  {% endif %}
-
-
                   {% if user.is_authenticated %}
 
                   <a class = "bg-purple-600 rounded-md p-2 m-2 font-semibold text-white hover:bg-purple-800 mt-4" href="{% url 'sign-out' %}">Logout</a>
@@ -39,6 +37,8 @@
                   <a class = "bg-purple-600 rounded-md p-2 m-2 font-semibold text-white hover:bg-purple-800 mt-4" href="{% url 'sign-in' %}">Login</a> 
                   <a class = "bg-purple-600 rounded-md p-2 m-2 font-semibold text-white hover:bg-purple-800 mt-4" href="{% url 'sign-up' %}">Sign Up</a> 
                   {% endif %}
+                  
+               
               </div>
             </div>
           </div>
@@ -72,21 +72,36 @@
       
 
 
-{% include "home.html" %}
+
 <main class="bg-gray-50">
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
     {% for event in events %}
       <div class="h-100 w-80 shadow-md rounded-md transition ease-in-out delay-150 bg-purple-300 hover:-translate-y-1 hover:scale-110 hover:bg-gray-400 duration-300">
-        <img src="{{event.asset.url}}" alt="browse image" />
-        <h5 class="font-semibold">{{event.name}}</h5>
-        <h5 class="font-semibold">Category: {{event.category}}</h5>
-        <h5 class="font-semibold">location: {{event.location}}</h5>
-        <h6 class="font-semibold">DATE: {{event.date}}</h6>
+ 
+          <img src="{{event.asset.url}}" alt="browse image" />
+
+
+      <h5 class="font-semibold">{{event.name}}</h5>
+      <h5 class="font-semibold">Category: {{event.category}}</h5>
+      <h5 class="font-semibold">location: {{event.location}}</h5>
+      <h6 class="font-semibold">DATE: {{event.date}}</h6>
+      
 
         <p>
           {{event.description}}
         </p>
-        <a href="{% url "delete_event" event.id %}" class="rounded-md bg-red-600 p-2  m-1 text-white">RSVP</a>
+        {% if user in event.participants.all %}
+        <p class="text-green-600 font-semibold">Already RSVP</p>
+      {% else %}
+        <form action="{% url 'rsvp_event' event.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-purple-600 text-white px-4 py-2 my-2 mb-4 rounded hover:bg-purple-700">
+              RSVP
+            </button>
+        </form>
+      {% endif %}
+        
+   
       </div>
     {% endfor %}
 

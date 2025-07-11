@@ -22,7 +22,7 @@
   {% endif %}
 </h2>
 
-<form class="border border-black text-center shadow-sm" action="" method="post">
+<form class="border border-black text-center shadow-sm" action="" method="post" enctype='multipart/form-data'>
   {{ form }}
   {% csrf_token %}
   <button  type ='submit' class="rounded-md bg-green-600 p-2  m-1 text-white">submit</button>
