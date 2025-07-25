@@ -1,7 +1,9 @@
 from django import forms
 from .models import Event,Category
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 class StyledFormMixin:
     """ Mixing to apply style to form field"""
 
@@ -39,8 +41,6 @@ class StyledFormMixin:
                 field.widget.attrs.update({
                     'class': self.default_classes
                 })
-
-
 
 
 class EventForm(StyledFormMixin,forms.ModelForm):

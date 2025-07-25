@@ -1,10 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User,Permission,Group
+from django.contrib.auth.models import Permission,Group
 from django.core.exceptions import ValidationError
 import re
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm,PasswordResetForm,SetPasswordForm, UserCreationForm, AuthenticationForm
+from .models import CustomUser
+
 from django.contrib.auth.forms import AuthenticationForm
 from events.forms import StyledFormMixin
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 class RegisterForm(StyledFormMixin,UserCreationForm):
     class Meta:
         model = User
@@ -67,3 +73,27 @@ class CustomRegistrationForm(StyledFormMixin,UserCreationForm):
 class LoginForm(StyledFormMixin,AuthenticationForm):
     def __init__(self, request = ..., *args, **kwargs):
         super().__init__(request, *args, **kwargs)
+
+
+class CustomPasswordChangeForm(StyledFormMixin, PasswordChangeForm):
+    pass
+class CustomPasswordResetForm(StyledFormMixin, PasswordResetForm):
+    pass
+class CustomPasswordResetConfirmForm(StyledFormMixin, SetPasswordForm):
+    pass
+
+
+class EditProfileForm(StyledFormMixin,forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['email','first_name','last_name','profile_image','phone_number']
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'email', 'first_name', 'last_name', 'phone_number', 'profile_image')
+
+class CustomAuthenticationForm(AuthenticationForm):
+    class Meta:
+        model = CustomUser

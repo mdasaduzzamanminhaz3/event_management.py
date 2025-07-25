@@ -29,9 +29,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com','http://127.0.0.1:8000']
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +44,6 @@ INSTALLED_APPS = [
     'events',
     'debug_toolbar',
     'core',
-    'users',
 
 ]
 
@@ -96,26 +98,26 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # }
 
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://event_management_db_w56f_user:6bhfKRiFBhpxHSUCWtSJeYG52XARiM8W@dpg-d1ii5sqdbo4c73f78lh0-a.oregon-postgres.render.com/event_management_db_w56f',
-        conn_max_age=600
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Replace this value with your local database's connection string.
+#         default='postgresql://event_management_db_w56f_user:6bhfKRiFBhpxHSUCWtSJeYG52XARiM8W@dpg-d1ii5sqdbo4c73f78lh0-a.oregon-postgres.render.com/event_management_db_w56f',
+#         conn_max_age=600
+#     )
+# }
 
 
 # for postgreSQL
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'event_management',
-#         'USER': 'postgres',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'event_management',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
+}
 
 
 
@@ -143,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 
@@ -173,7 +175,10 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 FRONTEND_URL = 'http://127.0.0.1:8000'
-LOGIN_URL = 'sign-in'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+LOGIN_URL = '/users/sign-in/'
+LOGIN_REDIRECT_URL= '/events/dashboard/'
+LOGOUT_REDIRECT_URL= '/'
